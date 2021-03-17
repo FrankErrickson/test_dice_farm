@@ -1,14 +1,15 @@
 function VegSocialCosts_EPA(Diets, Intensities, discounts)
+
+	# Get index for 2020
+	index_2020 = findfirst(x -> x == 2020, 1765:2500)
+
 	DICEFARM = create_dice_farm()
 	update_intensities(DICEFARM, Intensities)
 	run(DICEFARM)
 	BaseWelfare = DICEFARM[:welfare, :UTILITY]
-	BaseCons    = 1e12*DICEFARM[:neteconomy, :C][TwentyTwenty:end]
+	BaseCons    = 1e12*DICEFARM[:neteconomy, :C][index_2020:end]
 
 	SocialCosts = zeros(length(discounts), 8) # Vegan, Vegetarian; then each of 6 animal products
-
-	# Get index for 2020
-	index_2020 = findfirst(x -> x == 2020, 1765:2500)
 
 	# ----- Need original amount consumed -------- #
 	OrigBeef = DICEFARM[:farm, :Beef]
@@ -42,7 +43,7 @@ function VegSocialCosts_EPA(Diets, Intensities, discounts)
 	update_param!(VeganPulse, :Eggs, EggsPulse)
 	update_param!(VeganPulse, :SheepGoat, SheepGoatPulse)
 	run(VeganPulse)
-	VeganCons  = 1e12*VeganPulse[:neteconomy, :C][TwentyTwenty:end]
+	VeganCons  = 1e12*VeganPulse[:neteconomy, :C][index_2020:end]
 
 	for (i, d) in enumerate(discounts)
 		SocialCosts[i,1] = 1e-5*EPADamages(VeganCons, BaseCons, d)
@@ -66,7 +67,7 @@ function VegSocialCosts_EPA(Diets, Intensities, discounts)
 	update_param!(VegetarianPulse, :Pork, PorkPulse)
 	update_param!(VegetarianPulse, :SheepGoat, SheepGoatPulse)
 	run(VegetarianPulse)
-	VegetarianCons  = 1e12*VegetarianPulse[:neteconomy, :C][TwentyTwenty:end]
+	VegetarianCons  = 1e12*VegetarianPulse[:neteconomy, :C][index_2020:end]
 
 	for (i, d) in enumerate(discounts)
 		SocialCosts[i,2] = 1e-5*EPADamages(VegetarianCons, BaseCons, d)
@@ -83,7 +84,7 @@ function VegSocialCosts_EPA(Diets, Intensities, discounts)
 		Pulse[index_2020] = Pulse[index_2020] + 2000.0 #add 2000 kg of protein (or 2000000 grams)
 		update_param!(tempModel, meat, Pulse)
 		run(tempModel)
-		tempCons = 1e12*tempModel[:neteconomy, :C][TwentyTwenty:end]
+		tempCons = 1e12*tempModel[:neteconomy, :C][index_2020:end]
 			for (i,d) in enumerate(discounts)
 			SocialCosts[i, j+2] = 1e-5*EPADamages(tempCons, BaseCons, d)
 			end  

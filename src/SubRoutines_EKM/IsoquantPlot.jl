@@ -1,4 +1,8 @@
 function Isoquants()
+
+# Get index for 2020
+index_2020 = findfirst(x -> x == 2020, 1765:2500)
+
 isotemps = [1.5 2 2.5 3]
 MReduc1 = collect(0:.02:1) #change back to 0.02 for main figure
 EIndReduc1 = zeros(length(MReduc1), length(isotemps))
@@ -15,7 +19,7 @@ for MAXTEMP = 1:length(isotemps)
 			update_param!(m, :EIndReduc, Co2Reduc)
 			run(m) 
 			temp = m[:co2_cycle, :T]
-			maxtemp = maximum(temp[TwentyTwenty:TwentyTwenty+100])  #temp in next 100 years
+			maxtemp = maximum(temp[index_2020:index_2020+100])  #temp in next 100 years
 			end
 	EIndReduc1[j, MAXTEMP] = Co2Reduc
 	end
