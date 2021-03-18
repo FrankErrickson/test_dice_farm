@@ -1,4 +1,8 @@
-# Add a check for which SCC to use (EPA IAWG SCC :EPA or Nordhaus PNAS estimate :Nordhaus)
+# -------------------------------------------------------------------------------------
+# This file replicates Table 1 using 20, 100, and 500 year global warming potentials.
+# -------------------------------------------------------------------------------------
+
+# Add a check for which SCC to use (options = :EPA for U.S. SCC estimate from DICE or :Nordhaus for Nordhaus PNAS 2017 estimate).
 scc_version = :Nordhaus
 
 # 20, 100, and 500 year GWPs
@@ -12,8 +16,7 @@ gwp_n2o_100 = 298
 gwp_ch4_500 = 7.6
 gwp_n2o_500 = 153
 
-# Beef emissions intensities (in kg gas / kg protein)
-# From Table S7 in manuscript.
+# Beef emissions intensities (in kg gas / kg protein) from Table S7 in manuscript.
 beef_co2 = 65.1
 beef_ch4 = 6.5
 beef_n2o = 0.22
@@ -69,7 +72,7 @@ end
 # 20 Year GWP
 #-------------------------------
 
-# Calculate CO2 and CO2 equiv emissions for 20 grams (0.02 kg) beef.
+# Calculate CO₂ and CO₂ equivalent emissions for 20 grams (0.02 kg) beef.
 beef_co2_emiss_20 		= beef_co2 * 0.02
 beef_ch4_equiv_20 		= beef_ch4 * 0.02 * gwp_ch4_20
 beef_n2o_equiv_20 		= beef_n2o * 0.02 * gwp_n2o_20
@@ -94,7 +97,7 @@ sheepgoat_co2_emiss_20 	= sheepgoat_co2 * 0.02
 sheepgoat_ch4_equiv_20 	= sheepgoat_ch4 * 0.02 * gwp_ch4_20
 sheepgoat_n2o_equiv_20 	= sheepgoat_n2o * 0.02 * gwp_n2o_20
 
-# Calculate total CO2 and CO2-equiv emissions and scale to tonnes.
+# Calculate total CO₂ and CO₂ equivalent emissions and scale to tonnes.
 beef_total_co2_tons_20 		= (beef_co2_emiss_20 + beef_ch4_equiv_20 + beef_n2o_equiv_20) / 1000
 dairy_total_co2_tons_20 	= (dairy_co2_emiss_20 + dairy_ch4_equiv_20 + dairy_n2o_equiv_20) /1000
 poultry_total_co2_tons_20 	= (poultry_co2_emiss_20 + poultry_ch4_equiv_20 + poultry_n2o_equiv_20) /1000
@@ -102,14 +105,14 @@ pork_total_co2_tons_20 		= (pork_co2_emiss_20 + pork_ch4_equiv_20 + pork_n2o_equ
 eggs_total_co2_tons_20 		= (eggs_co2_emiss_20 + eggs_ch4_equiv_20 + eggs_n2o_equiv_20) /1000
 sheepgoat_total_co2_tons_20 = (sheepgoat_co2_emiss_20 + sheepgoat_ch4_equiv_20 + sheepgoat_n2o_equiv_20) /1000
 
-#Total SAD co2 equiv   = diet times co2 equiv of serving (times 50 because annual diet in kg, not 20 g serving)
+# Total SAD CO₂ equivalent = diet times CO₂ equivalent of serving (times 50 because annual diet in kg, not 20 g serving).
 SAD_total_co2_tons_20   	= 50*(beef_SAD*beef_total_co2_tons_20 + dairy_SAD*dairy_total_co2_tons_20 + poultry_SAD*poultry_total_co2_tons_20 + pork_SAD*pork_total_co2_tons_20 + eggs_SAD*eggs_total_co2_tons_20 + sheepgoat_SAD*sheepgoat_total_co2_tons_20)
 vegetarian_total_co2_tons_20= 50*(dairy_SAD*dairy_total_co2_tons_20 + eggs_SAD*eggs_total_co2_tons_20)
 
-#Total Global co2 equiv 
+# Total global CO₂ equivalent.
 global_total_co2_tons_20 	= 50*(beef_global*beef_total_co2_tons_20 + dairy_global*dairy_total_co2_tons_20 + poultry_global*poultry_total_co2_tons_20 + pork_global*pork_total_co2_tons_20 + eggs_global*eggs_total_co2_tons_20 + sheepgoat_global*sheepgoat_total_co2_tons_20)
 
-# Multiply these by the SCC
+# Multiply these by the SCC.
 sc_global_20 	= global_total_co2_tons_20 * epa_scc
 sc_SAD_20 		= SAD_total_co2_tons_20 * epa_scc
 sc_vegetarian_20= vegetarian_total_co2_tons_20 * epa_scc
@@ -124,7 +127,7 @@ sc_sheepgoat_20 = sheepgoat_total_co2_tons_20 * epa_scc
 # 100 Year GWP
 #-------------------------------
 
-# Calculate CO2 and CO2 equiv emissions for 20 grams (0.02 kg) beef.
+# Calculate CO₂ and CO₂ equivalent emissions for 20 grams (0.02 kg) beef.
 beef_co2_emiss_100 		= beef_co2 * 0.02
 beef_ch4_equiv_100 		= beef_ch4 * 0.02 * gwp_ch4_100
 beef_n2o_equiv_100 		= beef_n2o * 0.02 * gwp_n2o_100
@@ -149,7 +152,7 @@ sheepgoat_co2_emiss_100 = sheepgoat_co2 * 0.02
 sheepgoat_ch4_equiv_100 = sheepgoat_ch4 * 0.02 * gwp_ch4_100
 sheepgoat_n2o_equiv_100 = sheepgoat_n2o * 0.02 * gwp_n2o_100
 
-# Calculate total CO2 and CO2-equiv emissions and scale to tonnes.
+# Calculate total CO₂ and CO₂ equivalent emissions and scale to tonnes.
 beef_total_co2_tons_100 	= (beef_co2_emiss_100 + beef_ch4_equiv_100 + beef_n2o_equiv_100) / 1000
 dairy_total_co2_tons_100 	= (dairy_co2_emiss_100 + dairy_ch4_equiv_100 + dairy_n2o_equiv_100) /1000
 poultry_total_co2_tons_100 	= (poultry_co2_emiss_100 + poultry_ch4_equiv_100 + poultry_n2o_equiv_100) /1000
@@ -157,14 +160,14 @@ pork_total_co2_tons_100 	= (pork_co2_emiss_100 + pork_ch4_equiv_100 + pork_n2o_e
 eggs_total_co2_tons_100 	= (eggs_co2_emiss_100 + eggs_ch4_equiv_100 + eggs_n2o_equiv_100) /1000
 sheepgoat_total_co2_tons_100= (sheepgoat_co2_emiss_100 + sheepgoat_ch4_equiv_100 + sheepgoat_n2o_equiv_100) /1000
 
-#Total SAD co2 equiv   = diet times co2 equiv of serving (times 50 because annual diet in kg, not 20 g serving)
+#Total SAD CO₂ equivalent = diet times CO₂ equivalent of serving (times 50 because annual diet in kg, not 20 g serving).
 SAD_total_co2_tons_100   	 	= 50*(beef_SAD*beef_total_co2_tons_100 + dairy_SAD*dairy_total_co2_tons_100 + poultry_SAD*poultry_total_co2_tons_100 + pork_SAD*pork_total_co2_tons_100 + eggs_SAD*eggs_total_co2_tons_100 + sheepgoat_SAD*sheepgoat_total_co2_tons_100)
 vegetarian_total_co2_tons_100	= 50*(dairy_SAD*dairy_total_co2_tons_100 + eggs_SAD*eggs_total_co2_tons_100)
 
-#Total Global co2 equiv 
+#Total Global CO₂ equivalent.
 global_total_co2_tons_100 		= 50*(beef_global*beef_total_co2_tons_100 + dairy_global*dairy_total_co2_tons_100 + poultry_global*poultry_total_co2_tons_100 + pork_global*pork_total_co2_tons_100 + eggs_global*eggs_total_co2_tons_100 + sheepgoat_global*sheepgoat_total_co2_tons_100)
 
-# Multiply these by the SCC
+# Multiply these by the SCC.
 sc_global_100 		= global_total_co2_tons_100 * epa_scc
 sc_SAD_100 			= SAD_total_co2_tons_100 * epa_scc
 sc_vegetarian_100	= vegetarian_total_co2_tons_100 * epa_scc
@@ -179,7 +182,7 @@ sc_sheepgoat_100 	= sheepgoat_total_co2_tons_100 * epa_scc
 # 500 Year GWP
 #-------------------------------
 
-# Calculate CO2 and CO2 equiv emissions for 20 grams (0.02 kg) beef.
+# Calculate CO₂ and CO₂ equivalent emissions for 20 grams (0.02 kg) beef.
 beef_co2_emiss_500 		= beef_co2 * 0.02
 beef_ch4_equiv_500 		= beef_ch4 * 0.02 * gwp_ch4_500
 beef_n2o_equiv_500 		= beef_n2o * 0.02 * gwp_n2o_500
@@ -204,7 +207,7 @@ sheepgoat_co2_emiss_500 = sheepgoat_co2 * 0.02
 sheepgoat_ch4_equiv_500 = sheepgoat_ch4 * 0.02 * gwp_ch4_500
 sheepgoat_n2o_equiv_500 = sheepgoat_n2o * 0.02 * gwp_n2o_500
 
-# Calculate total CO2 and CO2-equiv emissions and scale to tonnes.
+# Calculate total CO₂ and CO₂ equivalent emissions and scale to tonnes.
 beef_total_co2_tons_500 	= (beef_co2_emiss_500 + beef_ch4_equiv_500 + beef_n2o_equiv_500) / 1000
 dairy_total_co2_tons_500 	= (dairy_co2_emiss_500 + dairy_ch4_equiv_500 + dairy_n2o_equiv_500) /1000
 poultry_total_co2_tons_500 	= (poultry_co2_emiss_500 + poultry_ch4_equiv_500 + poultry_n2o_equiv_500) /1000
@@ -212,14 +215,14 @@ pork_total_co2_tons_500 	= (pork_co2_emiss_500 + pork_ch4_equiv_500 + pork_n2o_e
 eggs_total_co2_tons_500 	= (eggs_co2_emiss_500 + eggs_ch4_equiv_500 + eggs_n2o_equiv_500) /1000
 sheepgoat_total_co2_tons_500= (sheepgoat_co2_emiss_500 + sheepgoat_ch4_equiv_500 + sheepgoat_n2o_equiv_500) /1000
 
-#Total SAD co2 equiv   = diet times co2 equiv of serving (times 50 because annual diet in kg, not 20 g serving)
+#Total SAD CO₂ equivalent = diet times CO₂ equivalent of serving (times 50 because annual diet in kg, not 20 g serving).
 SAD_total_co2_tons_500   		= 50*(beef_SAD*beef_total_co2_tons_500 + dairy_SAD*dairy_total_co2_tons_500 + poultry_SAD*poultry_total_co2_tons_500 + pork_SAD*pork_total_co2_tons_500 + eggs_SAD*eggs_total_co2_tons_500 + sheepgoat_SAD*sheepgoat_total_co2_tons_500)
 vegetarian_total_co2_tons_500	= 50*(dairy_SAD*dairy_total_co2_tons_500 + eggs_SAD*eggs_total_co2_tons_500)
 
-#Total Global co2 equiv 
+#Total Global CO₂ equivalent.
 global_total_co2_tons_500 		= 50*(beef_global*beef_total_co2_tons_500 + dairy_global*dairy_total_co2_tons_500 + poultry_global*poultry_total_co2_tons_500 + pork_global*pork_total_co2_tons_500 + eggs_global*eggs_total_co2_tons_500 + sheepgoat_global*sheepgoat_total_co2_tons_500)
 
-# Multiply these by the SCC
+# Multiply these by the SCC.
 sc_global_500 		= global_total_co2_tons_500 * epa_scc
 sc_SAD_500 			= SAD_total_co2_tons_500 * epa_scc
 sc_vegetarian_500	= vegetarian_total_co2_tons_500 * epa_scc
