@@ -1,4 +1,4 @@
-using ExcelReaders, DataFrames, CSV
+using XLSX, DataFrames, CSV
 
 #######################################################################################################################
 # Load parameters for the DICE-FARM Model.
@@ -19,7 +19,7 @@ function getdice2016excelparameters(start_year, end_year, DICEFile)
     T = length(start_year:end_year)
 
     #Open DICE_2016 Excel File to read in parameters.
-    f = openxl(DICEFile)
+    f = XLSX.readxlsx(DICEFile)
 
     p[:a0]          = getparams(f, "B108:B108", :single, "Parameters",1) # Initial level of total factor productivity
     p[:a1]          = getparams(f, "B25:B25", :single, "Base", 1)        # Damage coefficient on temperature
@@ -47,7 +47,7 @@ function getdice2016excelparameters(start_year, end_year, DICEFile)
     p[:gsigma1]     = getparams(f, "B15:B15", :single, "Parameters", 1)  # Initial growth of sigma (per year)
     p[:k0]          = getparams(f, "B12:B12", :single, "Base", 1)        # Initial capital
     p[:mat0]        = getparams(f, "B61:B61", :single, "Base", 1)        # Initial Concentration in atmosphere in 2015 (GtC)
-    p[:mateq]       = getparams(f, "B82, B82", :single, "Parameters", 1) # Equilibrium concentration atmosphere  (GtC)
+    p[:mateq]       = getparams(f, "B82:B82", :single, "Parameters", 1) # Equilibrium concentration atmosphere  (GtC)
     p[:MIU]         = getparams(f, "B135:CW135", :all, "Base", T)        # Optimized emission control rate results from DICE2016R (base case)
     p[:EIndToggle]  = 1.                                                 # Lets you toggle Industrial Emissions off (through sigma)
     p[:pback]       = getparams(f, "B10:B10", :single, "Parameters", 1)  # Cost of backstop 2010$ per tCO2 2015
